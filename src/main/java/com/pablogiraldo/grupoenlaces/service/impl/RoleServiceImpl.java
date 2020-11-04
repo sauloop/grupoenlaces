@@ -20,7 +20,7 @@ import com.pablogiraldo.grupoenlaces.service.RoleService;
 public class RoleServiceImpl implements RoleService {
 
 	@Autowired
-	RoleRepository roleRepository;
+	private RoleRepository roleRepository;
 
 	@Override
 	public List<Role> list() {

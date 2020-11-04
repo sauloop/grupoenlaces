@@ -9,13 +9,13 @@ public interface UserService {
 
 	List<User> list();
 
-	Optional<User> getById(long id);
-
-	Optional<User> getByName(String name);
-
 	void save(User user);
 
 	void delete(long id);
+
+	Optional<User> getById(long id);
+
+	Optional<User> getByName(String name);
 
 	boolean existsById(long id);
 

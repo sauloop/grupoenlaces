@@ -19,7 +19,7 @@ import com.pablogiraldo.grupoenlaces.service.UserService;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 
 	@Override
 	public List<User> list() {
