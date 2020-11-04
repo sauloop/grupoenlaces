@@ -9,9 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-//import javax.validation.constraints.NotEmpty;
-//
-//import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "links")
@@ -24,25 +23,26 @@ public class Link implements Serializable, Comparable<Link> {
 	private Long id;
 
 	@Column(nullable = false, unique = true)
-//	@Length(min = 5)
-//	@NotEmpty
+	@Length(min = 5)
+	@NotEmpty
 	private String title;
 
 	@Column(nullable = true)
 	private String subtitle;
 
 	@Column(nullable = false, unique = true)
-//	@NotEmpty
+	@NotEmpty
 	private String url;
 
-//	@NotEmpty
+	@NotEmpty
 	@ManyToOne
 	private Category category;
 
 	public Link() {
 	}
 
-	public Link(String title, String subtitle, String url, Category category) {
+	public Link(@Length(min = 5) @NotEmpty String title, String subtitle, @NotEmpty String url,
+			@NotEmpty Category category) {
 		this.title = title;
 		this.subtitle = subtitle;
 		this.url = url;
