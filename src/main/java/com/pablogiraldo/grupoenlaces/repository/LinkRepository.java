@@ -14,7 +14,7 @@ import com.pablogiraldo.grupoenlaces.entity.Link;
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public interface LinkRepository extends JpaRepository<Link, Long> {
 
-	public List<Link> findAllByOrderByIdDesc();
+	List<Link> findAllByOrderByIdDesc();
 
 	boolean existsById(long id);
 

@@ -17,7 +17,6 @@ public class Role implements Serializable {
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(unique = true)
 	private RoleName name;
 
 	public Role() {

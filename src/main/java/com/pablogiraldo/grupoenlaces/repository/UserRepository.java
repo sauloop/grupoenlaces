@@ -12,8 +12,8 @@ import com.pablogiraldo.grupoenlaces.entity.User;
 @Repository
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public interface UserRepository extends JpaRepository<User, Long> {
-	
-	Optional<User> findByName(String name);
 
-	boolean existsByName(String name);
+	Optional<User> findByUsername(String name);
+
+	boolean existsByUsername(String name);
 }

@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Length;
+//import javax.validation.constraints.NotEmpty;
+//import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User implements Serializable, Comparable<User> {
 
 	private static final long serialVersionUID = 1L;
@@ -19,13 +19,13 @@ public class User implements Serializable, Comparable<User> {
 	private Long id;
 
 	@Column(nullable = false, unique = true)
-	@Length(min = 5)
-	@NotEmpty
+//	@Length(min = 5)
+//	@NotEmpty
 	private String username;
 
 	@Column(nullable = false)
-	@Length(min = 5)
-	@NotEmpty
+//	@Length(min = 5)
+//	@NotEmpty
 	@JsonIgnore
 	private String password;
 
@@ -36,7 +36,7 @@ public class User implements Serializable, Comparable<User> {
 	public User() {
 	}
 
-	public User(@Length(min = 5) @NotEmpty String username, @Length(min = 5) @NotEmpty String password) {
+	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}

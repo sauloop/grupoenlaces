@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Optional<User> getByName(String name) {
-		return userRepository.findByName(name);
+		return userRepository.findByUsername(name);
 	}
 
 	@Override
@@ -53,6 +53,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean existsByName(String name) {
-		return userRepository.existsByName(name);
+		return userRepository.existsByUsername(name);
 	}
 }
