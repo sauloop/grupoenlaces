@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/", "/index", "/error", "/fragments", "/forbidden", "/login", "/usuario/registro")
+				.antMatchers("/", "/home", "/error", "/fragments", "/forbidden", "/login", "/usuario/registro")
 				.permitAll().antMatchers("/usuario/registrar").permitAll().anyRequest().authenticated().and()
 				.formLogin().loginProcessingUrl("/signin").loginPage("/login").permitAll().defaultSuccessUrl("/index")
 				.usernameParameter("nombreUsuario").passwordParameter("password").and().exceptionHandling()
