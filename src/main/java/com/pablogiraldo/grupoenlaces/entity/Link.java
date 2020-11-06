@@ -77,7 +77,7 @@ public class Link implements Serializable, Comparable<Link> {
 		return url;
 	}
 
-	public void setLink(String url) {
+	public void setUrl(String url) {
 		this.url = url;
 	}
 
