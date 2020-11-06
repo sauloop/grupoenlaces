@@ -15,9 +15,9 @@ public interface UserService {
 
 	Optional<User> getById(long id);
 
-	Optional<User> getByName(String name);
+	Optional<User> getByUsername(String name);
 
 	boolean existsById(long id);
 
-	boolean existsByName(String name);
+	boolean existsByUsername(String name);
 }

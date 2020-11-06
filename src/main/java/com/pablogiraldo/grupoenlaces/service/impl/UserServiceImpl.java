@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<User> getByName(String name) {
-		return userRepository.findByUsername(name);
+	public Optional<User> getByUsername(String username) {
+		return userRepository.findByUsername(username);
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean existsByName(String name) {
-		return userRepository.existsByUsername(name);
+	public boolean existsByUsername(String username) {
+		return userRepository.existsByUsername(username);
 	}
 }

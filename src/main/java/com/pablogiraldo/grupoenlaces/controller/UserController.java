@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pablogiraldo.grupoenlaces.entity.Role;
+import com.pablogiraldo.grupoenlaces.entity.User;
+import com.pablogiraldo.grupoenlaces.enu.RoleName;
 import com.pablogiraldo.grupoenlaces.service.RoleService;
 import com.pablogiraldo.grupoenlaces.service.UserService;
 
@@ -24,10 +26,10 @@ import com.pablogiraldo.grupoenlaces.service.UserService;
 public class UserController {
 
 	@Autowired
-	UserService usuarioService;
+	UserService userService;
 
 	@Autowired
-	RoleService rolService;
+	RoleService roleService;
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -37,198 +39,192 @@ public class UserController {
 		return "registry";
 	}
 
-	@PostMapping("/registrar")
-	public ModelAndView registrar(String nombreUsuario, String password) {
+	@PostMapping("/register")
+	public ModelAndView register(String username, String password) {
 		ModelAndView mv = new ModelAndView();
-		if (StringUtils.isBlank(nombreUsuario)) {
-			mv.setViewName("registro");
-			mv.addObject("error", "el nombre no puede estar vacío");
+		if (StringUtils.isBlank(username)) {
+			mv.setViewName("registry");
+			mv.addObject("error", "El nombre no puede estar vacío");
 			return mv;
 		}
 		if (StringUtils.isBlank(password)) {
-			mv.setViewName("registro");
-			mv.addObject("error", "la contraseña no puede estar vacía");
+			mv.setViewName("registry");
+			mv.addObject("error", "La contraseña no puede estar vacía");
 			return mv;
 		}
-		if (usuarioService.existsByNombreusuario(nombreUsuario)) {
-			mv.setViewName("registro");
-			mv.addObject("error", "ese nombre de usuario ya existe");
+		if (userService.existsByUsername(username)) {
+			mv.setViewName("registry");
+			mv.addObject("error", "Ese nombre de usuario ya existe");
 			return mv;
 		}
-		Usuario usuario = new Usuario();
-		usuario.setNombreUsuario(nombreUsuario);
-		usuario.setPassword(passwordEncoder.encode(password));
-		Rol rolUser = rolService.getByRolNombre(RolNombre.ROLE_USER).get();
-//		Rol rolEditor = rolService.getByRolNombre(RolNombre.ROLE_EDITOR).get();
-//		Set<Rol> roles = new HashSet<>();
-		List<Rol> roles = new ArrayList<>();
-		roles.add(rolUser);
-//		roles.add(rolEditor);
-		usuario.setRoles(roles);
-		usuarioService.save(usuario);
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(passwordEncoder.encode(password));
+		Role roleUser = roleService.getByName(RoleName.ROLE_USER).get();
+		List<Role> roles = new ArrayList<>();
+		roles.add(roleUser);
+		user.setRoles(roles);
+		userService.save(user);
 		mv.setViewName("login");
-		mv.addObject("registroOK", "Cuenta creada, " + usuario.getNombreUsuario() + ", ya puedes iniciar sesión");
+		mv.addObject("registroOK", "Cuenta creada, " + user.getUsername() + ", ya puedes iniciar sesión");
 		return mv;
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/lista")
-	public ModelAndView lista() {
+	@GetMapping("/list")
+	public ModelAndView list() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("usuario/lista");
-		List<Usuario> usuarios = usuarioService.list();
-		List<Usuario> usrFiltrados = new ArrayList<>();
-		for (Usuario usuario : usuarios) {
+		mv.setViewName("user/list");
+		List<User> users = userService.list();
+		List<User> usersFiltered = new ArrayList<>();
+		for (User user : users) {
 			boolean isEditor = false;
-			for (Rol rol : usuario.getRoles()) {
-				if (rol.getRolNombre().equals(RolNombre.ROLE_EDITOR)) {
+			for (Role role : user.getRoles()) {
+				if (role.getName().equals(RoleName.ROLE_EDITOR)) {
 					isEditor = true;
 				}
 			}
-			if (!isEditor && usuario.getId() != 1) {
-				usrFiltrados.add(usuario);
+			if (!isEditor && user.getId() != 1) {
+				usersFiltered.add(user);
 			}
 		}
-		mv.addObject("usuarios", usrFiltrados);
+		mv.addObject("users", usersFiltered);
 		return mv;
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/listaeditores")
-	public ModelAndView editores() {
+	@GetMapping("/editorslist")
+	public ModelAndView editorslist() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("usuario/listaeditores");
-		List<Usuario> usuarios = usuarioService.list();
-		List<Usuario> usrFiltrados = new ArrayList<>();
-		for (Usuario usuario : usuarios) {
+		mv.setViewName("user/editorslist");
+		List<User> users = userService.list();
+		List<User> usersFiltered = new ArrayList<>();
+		for (User user : users) {
 			boolean isEditor = false;
-			for (Rol rol : usuario.getRoles()) {
-				if (rol.getRolNombre().equals(RolNombre.ROLE_EDITOR)) {
+			for (Role role : user.getRoles()) {
+				if (role.getName().equals(RoleName.ROLE_EDITOR)) {
 					isEditor = true;
 				}
 			}
 			if (isEditor) {
-				usrFiltrados.add(usuario);
+				usersFiltered.add(user);
 			}
 		}
-		mv.addObject("usuarios", usrFiltrados);
+		mv.addObject("users", usersFiltered);
 		return mv;
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/detalle/{id}")
-	public ModelAndView detalle(@PathVariable("id") int id) {
-		if (!usuarioService.existsById(id))
+	@GetMapping("/detail/{id}")
+	public ModelAndView detail(@PathVariable("id") long id) {
+		if (!userService.existsById(id))
+			return new ModelAndView("redirect:/user/list");
+		User user = userService.getById(id).get();
+		ModelAndView mv = new ModelAndView("user/detail");
+		mv.addObject("user", user);
+		return mv;
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/editordetail/{id}")
+	public ModelAndView editordetail(@PathVariable("id") long id) {
+		if (!userService.existsById(id))
+			return new ModelAndView("redirect:/user/editorslist");
+		User user = userService.getById(id).get();
+		ModelAndView mv = new ModelAndView("user/editordetail");
+		mv.addObject("user", user);
+		return mv;
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/edit/{id}")
+	public ModelAndView editar(@PathVariable("id") long id) {
+		if (!userService.existsById(id))
+			return new ModelAndView("redirect:/user/list");
+		User user = userService.getById(id).get();
+		ModelAndView mv = new ModelAndView("user/edit");
+		mv.addObject("user", user);
+		return mv;
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/editormodify/{id}")
+	public ModelAndView editormodify(@PathVariable("id") long id) {
+		if (!userService.existsById(id))
 			return new ModelAndView("redirect:/usuario/lista");
-		Usuario usuario = usuarioService.getById(id).get();
-		ModelAndView mv = new ModelAndView("usuario/detalle");
-		mv.addObject("usuario", usuario);
+		User user = userService.getById(id).get();
+		ModelAndView mv = new ModelAndView("user/editormodify");
+		mv.addObject("user", user);
 		return mv;
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/detalleeditor/{id}")
-	public ModelAndView detalleeditor(@PathVariable("id") int id) {
-		if (!usuarioService.existsById(id))
-			return new ModelAndView("redirect:/usuario/listaeditores");
-		Usuario usuario = usuarioService.getById(id).get();
-		ModelAndView mv = new ModelAndView("usuario/detalleeditor");
-		mv.addObject("usuario", usuario);
-		return mv;
-	}
+	@PostMapping("/update")
+	public ModelAndView update(@RequestParam int id, @RequestParam(defaultValue = "") String role) {
 
-	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/editar/{id}")
-	public ModelAndView editar(@PathVariable("id") int id) {
-		if (!usuarioService.existsById(id))
-			return new ModelAndView("redirect:/usuario/lista");
-		Usuario usuario = usuarioService.getById(id).get();
-		ModelAndView mv = new ModelAndView("usuario/editar");
-		mv.addObject("usuario", usuario);
-//		mv.addObject("noEditor", true);
-		return mv;
-	}
-
-	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/modificareditor/{id}")
-	public ModelAndView modificareditor(@PathVariable("id") int id) {
-		if (!usuarioService.existsById(id))
-			return new ModelAndView("redirect:/usuario/lista");
-		Usuario usuario = usuarioService.getById(id).get();
-		ModelAndView mv = new ModelAndView("usuario/modificareditor");
-		mv.addObject("usuario", usuario);
-		return mv;
-	}
-
-	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/actualizar")
-	public ModelAndView actualizar(@RequestParam int id, @RequestParam(defaultValue = "") String rol) {
-
-		if (!usuarioService.existsById(id)) {
-			return new ModelAndView("redirect:/usuario/lista");
+		if (!userService.existsById(id)) {
+			return new ModelAndView("redirect:/user/list");
 		}
 
-		Usuario usuario = usuarioService.getById(id).get();
+		User user = userService.getById(id).get();
 
-		if (rol.equals("ROLE_EDITOR")) {
-			Rol rolUser = rolService.getByRolNombre(RolNombre.ROLE_USER).get();
-			Rol rolEditor = rolService.getByRolNombre(RolNombre.ROLE_EDITOR).get();
+		if (role.equals("ROLE_EDITOR")) {
+			Role roleUser = roleService.getByName(RoleName.ROLE_USER).get();
+			Role roleEditor = roleService.getByName(RoleName.ROLE_EDITOR).get();
 
-			List<Rol> roles = new ArrayList<>();
-			roles.add(rolUser);
-			roles.add(rolEditor);
-			usuario.setRoles(roles);
-			usuarioService.save(usuario);
+			List<Role> roles = new ArrayList<>();
+			roles.add(roleUser);
+			roles.add(roleEditor);
+			user.setRoles(roles);
+			userService.save(user);
 
 		} else {
 			return new ModelAndView("redirect:/usuario/lista");
 		}
-//		usuario.setNombreUsuario(nombre);
-		usuarioService.save(usuario);
+		userService.save(user);
 		return new ModelAndView("redirect:/usuario/lista");
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/actualizareditor")
-	public ModelAndView actualizareditor(@RequestParam int id, @RequestParam(defaultValue = "") String rol) {
-		if (!usuarioService.existsById(id)) {
+	@PostMapping("/editorupdate")
+	public ModelAndView editorupdate(@RequestParam long id, @RequestParam(defaultValue = "") String role) {
+		if (!userService.existsById(id)) {
 			return new ModelAndView("redirect:/usuario/listaeditores");
 		}
 
-		Usuario usuario = usuarioService.getById(id).get();
+		User user = userService.getById(id).get();
 
-		if (rol.equals("ROLE_USUARIO")) {
-			Rol rolUser = rolService.getByRolNombre(RolNombre.ROLE_USER).get();
+		if (role.equals("ROLE_USUARIO")) {
+			Role roleUser = roleService.getByName(RoleName.ROLE_USER).get();
 
-			List<Rol> roles = new ArrayList<>();
-			roles.add(rolUser);
-			usuario.setRoles(roles);
-			usuarioService.save(usuario);
+			List<Role> roles = new ArrayList<>();
+			roles.add(roleUser);
+			user.setRoles(roles);
+			userService.save(user);
 
 		} else {
-			return new ModelAndView("redirect:/usuario/listaeditores");
+			return new ModelAndView("redirect:/user/editorslist");
 		}
-//		usuario.setNombreUsuario(nombre);
-		usuarioService.save(usuario);
-		return new ModelAndView("redirect:/usuario/listaeditores");
+		userService.save(user);
+		return new ModelAndView("redirect:/user/editorslist");
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/borrar/{id}")
-	public ModelAndView borrar(@PathVariable("id") int id) {
-		if (usuarioService.existsById(id)) {
-			usuarioService.delete(id);
-			return new ModelAndView("redirect:/usuario/lista");
+	@GetMapping("/delete/{id}")
+	public ModelAndView delete(@PathVariable("id") long id) {
+		if (userService.existsById(id)) {
+			userService.delete(id);
+			return new ModelAndView("redirect:/user/list");
 		}
 		return null;
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/borrareditor/{id}")
-	public ModelAndView borrareditor(@PathVariable("id") int id) {
-		if (usuarioService.existsById(id)) {
-			usuarioService.delete(id);
-			return new ModelAndView("redirect:/usuario/listaeditores");
+	@GetMapping("/editordelete/{id}")
+	public ModelAndView editordelete(@PathVariable("id") int id) {
+		if (userService.existsById(id)) {
+			userService.delete(id);
+			return new ModelAndView("redirect:/user/editorslist");
 		}
 		return null;
 	}
