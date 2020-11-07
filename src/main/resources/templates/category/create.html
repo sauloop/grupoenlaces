@@ -12,7 +12,7 @@
 					<h5 class="mb-4">Nueva categoría</h5>
 				</div>
 				<div>
-					<form th:action="@{/categoria/guardar}" method="post">
+					<form th:action="@{/category/save}" method="post">
 						<div class="form-group">
 							<!-- control ataque csrf -->
 							<input type="hidden" th:name="${_csrf.parameterName}"
@@ -30,7 +30,7 @@
 					</form>
 				</div>
 				<div>
-					<a th:href="@{/categoria/lista}" style="text-decoration: none;"><button
+					<a th:href="@{/category/list}" style="text-decoration: none;"><button
 							class="btn btn-outline-info btn-block">
 							<i class="fas fa-arrow-circle-left"></i> Volver
 						</button></a>

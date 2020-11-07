@@ -14,7 +14,7 @@
 				</div>
 
 				<div class="mb-4 d-flex justify-content-end">
-					<a th:href="@{/enlace/buscar}">
+					<a th:href="@{/link/search}">
 						<button class="btn btn-outline-success btn-lg">Buscar</button>
 					</a>
 				</div>
@@ -33,18 +33,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="enlace : ${enlaces}">
-								<td th:text="${enlace.title}"></td>
-								<td th:text="${enlace.subtitle}"></td>
-								<td><a class="word-break" th:href="@{${enlace.link}}"
-									th:text="${enlace.link}" /></a></td>
+							<tr th:each="link : ${links}">
+								<td th:text="${link.title}"></td>
+								<td th:text="${link.subtitle}"></td>
+								<td><a class="word-break" th:href="@{${link.url}}"
+									th:text="${link.url}" /></a></td>
 								<td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a
-									th:href="@{'/enlace/editar/' + ${enlace.id}}"><button
+									th:href="@{'/link/edit/' + ${link.id}}"><button
 											class="btn btn-outline-warning">
 											<i class="far fa-edit"></i>
 										</button></a></td>
 								<td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a
-									th:href="@{'/enlace/borrar/' + ${enlace.id}}"><button
+									th:href="@{'/link/delete/' + ${link.id}}"><button
 											class="btn btn-outline-danger">
 											<i class="far fa-trash-alt"></i>
 										</button></a></td>
@@ -54,7 +54,7 @@
 				</div>
 				<div class="d-flex justify-content-start">
 					<a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"
-						th:href="@{/enlace/nuevo}">
+						th:href="@{/link/create}">
 						<button class="btn btn-outline-success btn-lg">
 							<i class="fas fa-plus-circle"></i> Nuevo enlace
 						</button>
@@ -72,8 +72,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- 	<div th:if="${enlaces.size()==0}" class="mt-25"></div> -->
-	<!-- <div th:style="${enlaces.size()==0 ? 'display:block' : 'display:none'}"></div> -->
 	<br />
 	<br />
 	<br />
@@ -83,7 +81,7 @@
 	<br />
 	<br />
 	<br />
-	<div th:classappend="${enlaces.size()<3} ? fixed-bottom : mt-4">
+	<div th:classappend="${links.size()<3} ? fixed-bottom : mt-4">
 		<footer th:insert="fragments :: footer"></footer>
 		<div th:insert="fragments :: scripts"></div>
 	</div>

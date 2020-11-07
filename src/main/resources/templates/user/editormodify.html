@@ -14,23 +14,23 @@
 				</div>
 				<br />
 				<div>
-					<form th:action="@{/usuario/actualizareditor}" method="post">
-						<input type="hidden" name="id" id="id" th:value="${usuario.id}">
+					<form th:action="@{/user/editorupdate}" method="post">
+						<input type="hidden" name="id" id="id" th:value="${user.id}">
 
 						<!-- control ataque csrf -->
 						<input type="hidden" th:name="${_csrf.parameterName}"
 							th:value="${_csrf.token}">
 						<!-- fin control ataque csrf -->
 						<div class="form-group">
-							<label for="nombre"><strong>Nombre</strong></label> <input
-								type="text" class="form-control" id="nombre" name="nombre"
+							<label for="username"><strong>Nombre</strong></label> <input
+								type="text" class="form-control" id="username" name="username"
 								required="required" autocomplete="off"
-								th:value="${usuario.nombreUsuario}">
+								th:value="${user.username}">
 						</div>
 
 						<div>
-							<input type="checkbox" id="rol" name="rol" value="ROLE_USUARIO">
-							<label for="rol"><strong> Hacer usuario</strong></label><br>
+							<input type="checkbox" id="role" name="role" value="ROLE_USUARIO">
+							<label for="role"><strong> Hacer usuario</strong></label><br>
 						</div>
 
 						<div class="form-group">
@@ -41,8 +41,7 @@
 					</form>
 				</div>
 				<div>
-					<a th:href="@{/usuario/listaeditores}"
-						style="text-decoration: none;"><button
+					<a th:href="@{/user/editorslist}" style="text-decoration: none;"><button
 							class="btn btn-outline-info btn-block">
 							<i class="fas fa-arrow-circle-left"></i> Volver
 						</button></a>

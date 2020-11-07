@@ -11,8 +11,8 @@
 			<div class="card-header text-center">Detalles del usuario</div>
 			<div class="card-body">
 				<h5 sec:authorize="hasRole('ROLE_ADMIN')" class="card-title"
-					th:text="'Nombre: ' + ${usuario.nombreUsuario}"></h5>
-				<a th:href="@{/usuario/lista}" class="btn btn-outline-info"> <i
+					th:text="'Nombre: ' + ${user.username}"></h5>
+				<a th:href="@{/user/list}" class="btn btn-outline-info"> <i
 					class="fas fa-arrow-circle-left"></i> Volver
 				</a>
 			</div>

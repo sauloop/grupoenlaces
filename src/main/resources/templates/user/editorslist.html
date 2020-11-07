@@ -24,22 +24,20 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="usuario: ${usuarios}">
-								<td th:text="${usuario.nombreUsuario}"></td>
-								<!-- 					<td th:each="rol: ${usuario.roles}"><span -->
-								<!-- 						th:text="${rol.rolNombre}"></span></td> -->
+							<tr th:each="user: ${users}">
+								<td th:text="${user.username}"></td>
 								<td sec:authorize="hasRole('ROLE_ADMIN')"><a
-									th:href="@{'/usuario/detalleeditor/' + ${usuario.id}}"><button
+									th:href="@{'/user/editordetail/' + ${user.id}}"><button
 											class="btn btn-outline-primary">
 											<i class="far fa-eye"></i>
 										</button></a></td>
 								<td sec:authorize="hasRole('ROLE_ADMIN')"><a
-									th:href="@{'/usuario/modificareditor/' + ${usuario.id}}"><button
+									th:href="@{'/user/editormodify/' + ${user.id}}"><button
 											class="btn btn-outline-warning">
 											<i class="far fa-edit"></i>
 										</button></a></td>
 								<td sec:authorize="hasRole('ROLE_ADMIN')"><a
-									th:href="@{'/usuario/borrareditor/' + ${usuario.id}}"><button
+									th:href="@{'/user/editordelete/' + ${user.id}}"><button
 											class="btn btn-outline-danger">
 											<i class="far fa-trash-alt"></i>
 										</button></a></td>
@@ -61,7 +59,7 @@
 	<br />
 	<br />
 	<br />
-	<div th:classappend="${usuarios.size()<6} ? fixed-bottom : mt-4">
+	<div th:classappend="${users.size()<6} ? fixed-bottom : mt-4">
 		<footer th:insert="fragments :: footer"></footer>
 		<div th:insert="fragments :: scripts"></div>
 	</div>

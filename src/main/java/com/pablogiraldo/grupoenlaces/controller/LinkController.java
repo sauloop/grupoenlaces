@@ -30,7 +30,7 @@ import com.pablogiraldo.grupoenlaces.service.CategoryService;
 import com.pablogiraldo.grupoenlaces.service.LinkService;
 
 @Controller
-@RequestMapping("/links")
+@RequestMapping("/link")
 public class LinkController {
 
 	@Autowired

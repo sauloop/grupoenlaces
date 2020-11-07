@@ -16,7 +16,7 @@
 				<br />
 
 				<div>
-					<form th:action="@{/enlace/guardar}" method="post">
+					<form th:action="@{/link/save}" method="post">
 						<div class="form-group">
 							<!-- control ataque csrf -->
 							<input type="hidden" th:name="${_csrf.parameterName}"
@@ -26,8 +26,8 @@
 								<label for="category"><strong>Categoría</strong></label><br />
 								<select class="browser-default custom-select col-md-4"
 									name="category" id="category">
-									<option th:each="cat:${categories}" th:value="${cat.id}"
-										th:text="${cat.name}"></option>
+									<option th:each="category:${categories}"
+										th:value="${category.id}" th:text="${category.name}"></option>
 								</select>
 							</div>
 							<label for="title"><strong>Título</strong></label> <input
@@ -40,8 +40,8 @@
 								required="required" autocomplete="off">
 						</div>
 						<div class="form-group">
-							<label for="link"><strong>Enlace</strong></label> <input
-								type="text" class="form-control" id="link" name="link"
+							<label for="url"><strong>Enlace</strong></label> <input
+								type="text" class="form-control" id="url" name="url"
 								required="required" autocomplete="off">
 						</div>
 						<div class="form-group">
@@ -53,7 +53,7 @@
 				</div>
 
 				<div>
-					<a th:href="@{/enlace/lista}" style="text-decoration: none;"><button
+					<a th:href="@{/link/list}" style="text-decoration: none;"><button
 							class="btn btn-outline-info btn-block">
 							<i class="fas fa-arrow-circle-left"></i> Volver
 						</button></a>

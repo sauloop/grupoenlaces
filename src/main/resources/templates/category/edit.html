@@ -14,7 +14,7 @@
 				</div>
 				<br />
 				<div>
-					<form th:action="@{/categoria/actualizar}" method="post">
+					<form th:action="@{/category/update}" method="post">
 						<input type="hidden" name="id" id="id" th:value="${category.id}">
 						<div class="form-group">
 							<!-- control ataque csrf -->
@@ -37,7 +37,7 @@
 				</div>
 
 				<div>
-					<a th:href="@{/categoria/lista}" style="text-decoration: none;"><button
+					<a th:href="@{/category/list}" style="text-decoration: none;"><button
 							class="btn btn-outline-info btn-block">
 							<i class="fas fa-arrow-circle-left"></i> Volver
 						</button></a>

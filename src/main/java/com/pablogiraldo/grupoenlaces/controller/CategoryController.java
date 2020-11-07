@@ -27,7 +27,7 @@ import com.pablogiraldo.grupoenlaces.service.CategoryService;
 //import com.tutorial.crud.entity.Article;
 
 @Controller
-@RequestMapping("/categories")
+@RequestMapping("/category")
 public class CategoryController {
 
 	@Autowired

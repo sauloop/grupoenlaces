@@ -18,19 +18,14 @@ public class HomeController {
 	@Autowired
 	private LinkService linkService;
 
-	@GetMapping("")
-	public String listArticles(Model model) {
+	@GetMapping(value = { "", "/home" })
+	public String home(Model model) {
 		List<Link> links = linkService.list();
 
 		model.addAttribute("links", links);
 
 		return "home";
 	}
-
-//    @GetMapping(value = {"", "/index"})
-//    public String index(){
-//        return "home";
-//    }
 
 	@GetMapping("/login")
 	public String login() {

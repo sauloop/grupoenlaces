@@ -14,7 +14,7 @@
 						th:href="@{/login}"> <i class="fas fa-user"></i> Login
 					</a></li>
 					<li class="nav-item"><a class="nav-link"
-						th:href="@{/usuario/registro}"> <i class="fas fa-user-plus"></i>
+						th:href="@{/user/registry}"> <i class="fas fa-user-plus"></i>
 							Registro
 					</a></li>
 
@@ -37,9 +37,9 @@
 						th:value="${_csrf.token}">
 					<!-- fin control ataque csrf -->
 					<div class="form-group">
-						<label for="nombreUsuario">Nombre de usuario</label> <input
-							type="text" class="form-control" id="nombreUsuario"
-							name="nombreUsuario" required="required" autocomplete="off">
+						<label for="username">Nombre de usuario</label> <input type="text"
+							class="form-control" id="username" name="username"
+							required="required" autocomplete="off">
 					</div>
 					<div class="form-group">
 						<label for="password">Contraseña</label> <input type="password"

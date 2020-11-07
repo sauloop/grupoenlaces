@@ -22,7 +22,7 @@ import com.pablogiraldo.grupoenlaces.service.RoleService;
 import com.pablogiraldo.grupoenlaces.service.UserService;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
@@ -139,8 +139,9 @@ public class UserController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/edit/{id}")
 	public ModelAndView editar(@PathVariable("id") long id) {
-		if (!userService.existsById(id))
+		if (!userService.existsById(id)) {
 			return new ModelAndView("redirect:/user/list");
+		}
 		User user = userService.getById(id).get();
 		ModelAndView mv = new ModelAndView("user/edit");
 		mv.addObject("user", user);
@@ -150,8 +151,10 @@ public class UserController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/editormodify/{id}")
 	public ModelAndView editormodify(@PathVariable("id") long id) {
-		if (!userService.existsById(id))
-			return new ModelAndView("redirect:/usuario/lista");
+		if (!userService.existsById(id)) {
+			return new ModelAndView("redirect:/user/list");
+		}
+
 		User user = userService.getById(id).get();
 		ModelAndView mv = new ModelAndView("user/editormodify");
 		mv.addObject("user", user);
@@ -179,17 +182,17 @@ public class UserController {
 			userService.save(user);
 
 		} else {
-			return new ModelAndView("redirect:/usuario/lista");
+			return new ModelAndView("redirect:/user/list");
 		}
 		userService.save(user);
-		return new ModelAndView("redirect:/usuario/lista");
+		return new ModelAndView("redirect:/user/list");
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/editorupdate")
 	public ModelAndView editorupdate(@RequestParam long id, @RequestParam(defaultValue = "") String role) {
 		if (!userService.existsById(id)) {
-			return new ModelAndView("redirect:/usuario/listaeditores");
+			return new ModelAndView("redirect:/user/editorslist");
 		}
 
 		User user = userService.getById(id).get();

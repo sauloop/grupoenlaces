@@ -29,12 +29,12 @@
 					<li class="nav-item active"><a class="nav-link" th:href="@{/}">
 							<i class="fas fa-home"></i> Inicio <span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item active"
-						sec:authorize="isAuthenticated() && !hasRole('ROLE_ADMIN') && !hasRole('ROLE_EDITOR')">
-						<a class="nav-link" th:href="@{/enlace/lista}"> <i
-							class="far fa-list-alt"></i> Lista
-					</a>
-					</li>
+					<!-- 					<li class="nav-item active" -->
+					<!-- 						sec:authorize="isAuthenticated() && !hasRole('ROLE_ADMIN') && !hasRole('ROLE_EDITOR')"> -->
+					<!-- 						<a class="nav-link" th:href="@{/link/list}"> <i -->
+					<!-- 							class="far fa-list-alt"></i> Lista -->
+					<!-- 					</a> -->
+					<!-- 					</li> -->
 					<li class="nav-item dropdown active"
 						sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -50,11 +50,11 @@
 								<div class="dropdown-divider"></div>
 							</div>
 
-							<a class="dropdown-item" th:href="@{/enlace/lista}"> <i
+							<a class="dropdown-item" th:href="@{/link/list}"> <i
 								class="far fa-list-alt"></i> Lista
 							</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" th:href="@{/enlace/nuevo}"> <i
+							<a class="dropdown-item" th:href="@{/link/create}"> <i
 								class="fas fa-plus-circle"></i> Nuevo enlace
 							</a>
 						</div></li>

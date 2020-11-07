@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Length;
+//import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "links")
@@ -23,7 +23,7 @@ public class Link implements Serializable, Comparable<Link> {
 	private Long id;
 
 	@Column(nullable = false, unique = true)
-	@Length(min = 5)
+//	@Length(min = 5)
 	@NotEmpty
 	private String title;
 
@@ -34,14 +34,13 @@ public class Link implements Serializable, Comparable<Link> {
 	@NotEmpty
 	private String url;
 
-	@NotEmpty
 	@ManyToOne
 	private Category category;
 
 	public Link() {
 	}
 
-	public Link(@Length(min = 5) @NotEmpty String title, String subtitle, @NotEmpty String url,
+	public Link(@NotEmpty String title, String subtitle, @NotEmpty String url,
 			@NotEmpty Category category) {
 		this.title = title;
 		this.subtitle = subtitle;
