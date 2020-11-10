@@ -7,7 +7,7 @@
 	<header th:insert="fragments :: nav"></header>
 
 	<div class="container d-flex justify-content-center">
-		<div class="card">
+		<div class="card mt-4 mb-4">
 			<div class="card-header">
 				<ul class="nav nav-tabs">
 					<li class="nav-item active"><a class="nav-link active"
@@ -46,12 +46,12 @@
 							class="form-control" id="password" name="password"
 							required="required">
 					</div>
-					<div class="form-group form-check">
-						<input type="checkbox" class="form-check-input"
-							id="checkRememberMe" name="checkRememberMe"> <label
-							class="form-check-label" for="checkRememberMe">Recordarme</label>
-					</div>
-					<div class="form-group">
+					<!-- 					<div class="form-group form-check"> -->
+					<!-- 						<input type="checkbox" class="form-check-input" -->
+					<!-- 							id="checkRememberMe" name="checkRememberMe"> <label -->
+					<!-- 							class="form-check-label" for="checkRememberMe">Recordarme</label> -->
+					<!-- 					</div> -->
+					<div class="form-group mt-4">
 						<button type="submit" class="btn btn-outline-success btn-block">
 							<i class="fas fa-sign-in-alt"></i> Iniciar sesión
 						</button>
@@ -73,9 +73,9 @@
 		</div>
 	</div>
 
-	<div class="fixed-bottom">
-		<footer th:insert="fragments :: footer"></footer>
-		<div th:insert="fragments :: scripts"></div>
-	</div>
+	<!-- 	<div class="mt-4"> -->
+	<!-- 		<footer th:insert="fragments :: footer"></footer> -->
+	<!-- 	</div> -->
+	<div th:insert="fragments :: scripts"></div>
 </body>
 </html>

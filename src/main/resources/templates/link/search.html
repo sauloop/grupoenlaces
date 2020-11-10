@@ -37,53 +37,73 @@
 
 
 				<div th:if="${links.size()>0}" class="mt-4 mb-4">
-					<table class="table table-dark text-center">
-						<thead>
-							<tr>
-								<th scope="col">Título</th>
-								<th scope="col">Subtítulo</th>
-								<th scope="col">Ir</th>
-								<th scope="col"
-									sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">Editar</th>
-								<th scope="col"
-									sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">Eliminar</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="link : ${links}">
-								<td th:text="${link.title}"></td>
-								<td th:text="${link.subtitle}"></td>
-								<td><a class="word-break" th:href="@{${link.url}}"
-									th:text="${link.url}" /></a></td>
-								<td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a
-									th:href="@{'/link/edit/' + ${link.id}}"><button
-											class="btn btn-outline-warning">
-											<i class="far fa-edit"></i>
-										</button></a></td>
-								<td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a
-									th:href="@{'/link/delete/' + ${link.id}}"><button
-											class="btn btn-outline-danger">
-											<i class="far fa-trash-alt"></i>
-										</button></a></td>
-							</tr>
-						</tbody>
-					</table>
+					<div th:each="link : ${links}">
+						<div class="rounded m-4 p-2" style="background-color: lightgrey;">
+							<div class="col-12 d-flex justify-content-start m-2 p-2">
+								<div class="ml-3">
+									<h5 th:text="${link.category.name}"></h5>
+								</div>
+							</div>
+							<div class="col-12 d-flex justify-content-center m-2 p-2">
+								<div>
+									<h2 class="word-break" th:text="${link.title}"></h2>
+								</div>
+							</div>
+							<div class="col-12 d-flex justify-content-center m-2 p-2">
+								<div style="font-size: 25px;">
+									<a th:href="@{${link.url}}"><i class='fas fa-link'></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 					<table class="table table-dark text-center"> -->
+					<!-- 						<thead> -->
+					<!-- 							<tr> -->
+					<!-- 								<th scope="col">Título</th> -->
+					<!-- 								<th scope="col">Subtítulo</th> -->
+					<!-- 								<th scope="col">Ir</th> -->
+					<!-- 								<th scope="col" -->
+					<!-- 									sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">Editar</th> -->
+					<!-- 								<th scope="col" -->
+					<!-- 									sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">Eliminar</th> -->
+					<!-- 							</tr> -->
+					<!-- 						</thead> -->
+					<!-- 						<tbody> -->
+					<!-- 							<tr th:each="link : ${links}"> -->
+					<!-- 								<td th:text="${link.title}"></td> -->
+					<!-- 								<td th:text="${link.subtitle}"></td> -->
+					<!-- 								<td><a class="word-break" th:href="@{${link.url}}" -->
+					<!-- 									th:text="${link.url}" /></a></td> -->
+					<!-- 								<td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a -->
+					<!-- 									th:href="@{'/link/edit/' + ${link.id}}"><button -->
+					<!-- 											class="btn btn-outline-warning"> -->
+					<!-- 											<i class="far fa-edit"></i> -->
+					<!-- 										</button></a></td> -->
+					<!-- 								<td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a -->
+					<!-- 									th:href="@{'/link/delete/' + ${link.id}}"><button -->
+					<!-- 											class="btn btn-outline-danger"> -->
+					<!-- 											<i class="far fa-trash-alt"></i> -->
+					<!-- 										</button></a></td> -->
+					<!-- 							</tr> -->
+					<!-- 						</tbody> -->
+					<!-- 					</table> -->
 				</div>
 			</div>
 		</div>
 	</div>
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<div th:classappend="${links.size()<3} ? fixed-bottom : mt-4">
-		<footer th:insert="fragments :: footer"></footer>
-		<div th:insert="fragments :: scripts"></div>
-	</div>
+	<!-- 		<br /> -->
+	<!-- 		<br /> -->
+	<!-- 		<br /> -->
+	<!-- 		<br /> -->
+	<!-- 		<br /> -->
+	<!-- 		<br /> -->
+	<!-- 		<br /> -->
+	<!-- 		<br /> -->
+	<!-- 		<br /> -->
+	<!-- 		<div th:classappend="${links.size()<3} ? fixed-bottom : mt-4"> -->
+	<!-- 			<footer th:insert="fragments :: footer"></footer> -->
+	<!-- 		</div> -->
+
+	<div th:insert="fragments :: scripts"></div>
 </body>
 </html>
