@@ -30,6 +30,29 @@
 					</a></li>
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/link/search}">Buscar</a></li>
+					<li class="nav-item dropdown active"
+						sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> <i class="fas fa-toolbox"></i>
+							Administración
+					</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">
+								<a class="dropdown-item" th:href="@{/admin}"> <i
+									class="far fa-list-alt"></i> Administrar
+								</a>
+								<div class="dropdown-divider"></div>
+							</div>
+
+							<a class="dropdown-item" th:href="@{/link/list}"> <i
+								class="far fa-list-alt"></i> Lista enlaces
+							</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" th:href="@{/link/create}"> <i
+								class="fas fa-plus-circle"></i> Nuevo enlace
+							</a>
+						</div></li>
 				</ul>
 				<div>
 					<a th:href="@{/login}" sec:authorize="!isAuthenticated()"><button

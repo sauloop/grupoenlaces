@@ -30,7 +30,7 @@ public class Link implements Serializable, Comparable<Link> {
 	@Column(nullable = true)
 	private String subtitle;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	@NotEmpty
 	private String url;
 
@@ -40,8 +40,7 @@ public class Link implements Serializable, Comparable<Link> {
 	public Link() {
 	}
 
-	public Link(@NotEmpty String title, String subtitle, @NotEmpty String url,
-			@NotEmpty Category category) {
+	public Link(@NotEmpty String title, String subtitle, @NotEmpty String url, @NotEmpty Category category) {
 		this.title = title;
 		this.subtitle = subtitle;
 		this.url = url;

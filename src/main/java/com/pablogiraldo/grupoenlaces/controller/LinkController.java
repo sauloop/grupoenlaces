@@ -61,15 +61,19 @@ public class LinkController {
 	@PostMapping("/save")
 	public ModelAndView save(@RequestParam Category category, @RequestParam String title, @RequestParam String subtitle,
 			String url) {
+		List<Category> categories = categoryService.list();
+
 		ModelAndView mv = new ModelAndView();
 		if (StringUtils.isBlank(title)) {
 			mv.setViewName("link/create");
+			mv.addObject("categories", categories);
 			mv.addObject("error", "El título no puede estar vacío");
 			return mv;
 		}
 
 		if (linkService.existsByTitle(title)) {
 			mv.setViewName("link/create");
+			mv.addObject("categories", categories);
 			mv.addObject("error", "Ese enlace ya existe");
 			return mv;
 		}

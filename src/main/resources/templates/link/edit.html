@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col-md-4 mx-auto">
 				<div class="mt-4 mb-4">
-					<h5>Editar enlace</h5>
+					<h2>Editar enlace</h2>
 				</div>
 				<br />
 				<div>
@@ -24,7 +24,7 @@
 							<div class="form-group">
 								<label for="category"><strong>Categoría</strong></label><br />
 								<select class="browser-default custom-select col-md-4"
-									name="category" id="category">
+									name="category" th:field="*{category}" id="category">
 									<option th:each="cat:${categories}" th:value="${cat.id}"
 										th:text="${cat.name}"></option>
 								</select>

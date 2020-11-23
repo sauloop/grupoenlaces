@@ -8,7 +8,9 @@
 
 	<div class="container">
 		<div class="card">
-			<div class="card-header text-center">Detalles del usuario</div>
+			<div class="card-header text-center">
+				<h2>Detalles del usuario</h2>
+			</div>
 			<div class="card-body">
 				<h5 sec:authorize="hasRole('ROLE_ADMIN')" class="card-title"
 					th:text="'Nombre: ' + ${user.username}"></h5>
