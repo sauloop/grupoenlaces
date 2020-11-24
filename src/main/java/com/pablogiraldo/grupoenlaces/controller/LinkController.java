@@ -60,7 +60,7 @@ public class LinkController {
 	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
 	@PostMapping("/save")
 	public ModelAndView save(@RequestParam Category category, @RequestParam String title, @RequestParam String subtitle,
-			String url) {
+			@RequestParam String url) {
 		List<Category> categories = categoryService.list();
 
 		ModelAndView mv = new ModelAndView();
