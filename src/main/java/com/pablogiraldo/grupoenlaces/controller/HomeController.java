@@ -1,7 +1,5 @@
 package com.pablogiraldo.grupoenlaces.controller;
 
-//import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,15 +21,6 @@ public class HomeController {
 	@Autowired
 	private LinkService linkService;
 
-//	@GetMapping(value = { "", "/home" })
-//	public String home(Model model) {
-//		List<Link> links = linkService.list();
-//
-//		model.addAttribute("links", links);
-//
-//		return "home";
-//	}
-
 	@GetMapping(value = { "", "/home" })
 	public String home(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 
@@ -39,12 +28,7 @@ public class HomeController {
 
 		Page<Link> links = linkService.list(linkPageable);
 
-		// dev
 		RenderizadorPaginas<Link> renderizadorPaginas = new RenderizadorPaginas<Link>("/", links);
-
-		// prod
-//		RenderizadorPaginas<Link> renderizadorPaginas = new RenderizadorPaginas<Link>(
-//				"https://grupoenlaces.herokuapp.com/", links);
 
 		model.addAttribute("renpag", renderizadorPaginas);
 		model.addAttribute("links", links);
