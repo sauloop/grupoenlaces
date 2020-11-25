@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-<title>Inicio | inforenlace</title>
-<th:block th:insert="fragments.html :: headerfiles">
-</th:block>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+<head th:insert="fragments :: headerfiles">
 <body>
 	<nav th:replace="fragments.html :: nav"></nav>
 	<div class="container-fluid" style="margin-top: 30px">
