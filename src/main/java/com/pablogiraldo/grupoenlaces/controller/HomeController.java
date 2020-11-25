@@ -44,7 +44,7 @@ public class HomeController {
 
 		// prod
 		RenderizadorPaginas<Link> renderizadorPaginas = new RenderizadorPaginas<Link>(
-				"https://www.grupoenlaces.herokuapp.com/", links);
+				"http://www.grupoenlaces.herokuapp.com/", links);
 
 		model.addAttribute("renpag", renderizadorPaginas);
 		model.addAttribute("links", links);
