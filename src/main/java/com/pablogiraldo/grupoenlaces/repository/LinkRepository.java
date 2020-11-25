@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +17,8 @@ import com.pablogiraldo.grupoenlaces.entity.Link;
 public interface LinkRepository extends JpaRepository<Link, Long> {
 
 	List<Link> findAllByOrderByIdDesc();
+
+	Page<Link> findAllByOrderByIdDesc(Pageable linkPageable);
 
 	boolean existsById(long id);
 
