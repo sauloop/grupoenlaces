@@ -40,11 +40,11 @@ public class HomeController {
 		Page<Link> links = linkService.list(linkPageable);
 
 		// dev
-//		RenderizadorPaginas<Link> renderizadorPaginas = new RenderizadorPaginas<Link>("", links);
+		RenderizadorPaginas<Link> renderizadorPaginas = new RenderizadorPaginas<Link>("/", links);
 
 		// prod
-		RenderizadorPaginas<Link> renderizadorPaginas = new RenderizadorPaginas<Link>(
-				"http://www.grupoenlaces.herokuapp.com/", links);
+//		RenderizadorPaginas<Link> renderizadorPaginas = new RenderizadorPaginas<Link>(
+//				"https://grupoenlaces.herokuapp.com/", links);
 
 		model.addAttribute("renpag", renderizadorPaginas);
 		model.addAttribute("links", links);
